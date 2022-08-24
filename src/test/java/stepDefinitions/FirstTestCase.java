@@ -82,6 +82,7 @@ public class FirstTestCase {
             System.out.println("Data is  correct!!!");
         else
             System.out.println("Data is incorrect!!!");
+        driver.close();
     }
 
     @And("^Click on Submit button$")
