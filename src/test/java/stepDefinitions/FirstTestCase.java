@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,5 +90,57 @@ public class FirstTestCase {
     public void clickOnSubmitButton() throws InterruptedException {
         driver.findElement(Locators.submitButton).click();
         Thread.sleep(1000);
+    }
+
+
+    //TC2
+    @And("^Click on Radio button present below Element dropdown$")
+    public void clickOnRadioButtonPresentBelowElementDropdown() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(Locators.radioButton).click();
+    }
+
+    @Then("^Verify if three radio buttons get displayed on screen$")
+    public void verifyIfThreeRadioButtonsGetDisplayedOnScreen() throws InterruptedException {
+        Thread.sleep(1000);
+        List<WebElement> numberOfRadioButtons = driver.findElements(Locators.numberOfRadioButtons);
+        if(numberOfRadioButtons.size()==3)
+            System.out.println("Yes displayed successfully");
+        else
+            System.out.println("Not displayed successfully");
+    }
+
+    @And("^Click on first radio button$")
+    public void clickOnFirstRadioButton() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(Locators.radio1).click();
+
+    }
+
+    @And("Verify if {string} text displayed on screen")
+    public void verifyIfTextDisplayedOnScreen(String res) throws InterruptedException {
+        Thread.sleep(1000);
+        if(driver.findElement(Locators.radioButtonResponse).getText().equalsIgnoreCase(res))
+            System.out.println("Successfull outcome");
+    }
+
+    @Then("^Click on second radio button$")
+    public void clickOnSecondRadioButton() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(Locators.radio2).click();
+    }
+
+    @Then("^Check if user is able to click on third radio button$")
+    public void checkIfUserIsAbleToClickOnThirdRadioButton() {
+        List<WebElement> numberOfRadioButtons = driver.findElements(Locators.numberOfRadioButtons);
+       if(!numberOfRadioButtons.get(2).isEnabled())
+           System.out.println("Third radio button is disabled");
+       else
+           System.out.println("Third radio button is enabled");
+    }
+
+    @Then("Close browser")
+    public void closeBrowser() {
+        driver.close();
     }
 }
