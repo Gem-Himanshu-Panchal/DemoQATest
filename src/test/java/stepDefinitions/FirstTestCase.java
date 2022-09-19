@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.sql.Driver;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class FirstTestCase {
@@ -33,6 +35,7 @@ public class FirstTestCase {
     @Then("^Click on Text button present below Element dropdown$")
     public void click_on_text_button_present_below_element_dropdown() throws InterruptedException {
         Thread.sleep(2000);
+
         driver.findElement(Locators.textBoxButton).click();
     }
 
@@ -59,24 +62,24 @@ public class FirstTestCase {
         List<WebElement> output = driver.findElements(Locators.outputWebElement);
         ArrayList<String> resultInString = new ArrayList<>();
 
-        for(int i=0;i<output.size();i++){
+        for (int i = 0; i < output.size(); i++) {
 
             resultInString.add(output.get(i).getText());
         }
 
         ArrayList<String> checkFromThis = new ArrayList<>();
-        checkFromThis.add("Name:"+name);
-        checkFromThis.add("Email:"+email);
-        checkFromThis.add("Current Address :"+currentAddress);
-        checkFromThis.add("Permananet Address :"+permanentAddress);
+        checkFromThis.add("Name:" + name);
+        checkFromThis.add("Email:" + email);
+        checkFromThis.add("Current Address :" + currentAddress);
+        checkFromThis.add("Permananet Address :" + permanentAddress);
 
-        boolean isFound=true;
-        for(int i=0;i<checkFromThis.size();i++){
-            if(checkFromThis.contains(resultInString.get(i))){
-                isFound=true;
-            }
-               else{
-                   isFound=false;break;
+        boolean isFound = true;
+        for (int i = 0; i < checkFromThis.size(); i++) {
+            if (checkFromThis.contains(resultInString.get(i))) {
+                isFound = true;
+            } else {
+                isFound = false;
+                break;
             }
         }
         if (isFound)
@@ -104,7 +107,7 @@ public class FirstTestCase {
     public void verifyIfThreeRadioButtonsGetDisplayedOnScreen() throws InterruptedException {
         Thread.sleep(1000);
         List<WebElement> numberOfRadioButtons = driver.findElements(Locators.numberOfRadioButtons);
-        if(numberOfRadioButtons.size()==3)
+        if (numberOfRadioButtons.size() == 3)
             System.out.println("Yes displayed successfully");
         else
             System.out.println("Not displayed successfully");
@@ -120,7 +123,7 @@ public class FirstTestCase {
     @And("Verify if {string} text displayed on screen")
     public void verifyIfTextDisplayedOnScreen(String res) throws InterruptedException {
         Thread.sleep(1000);
-        if(driver.findElement(Locators.radioButtonResponse).getText().equalsIgnoreCase(res))
+        if (driver.findElement(Locators.radioButtonResponse).getText().equalsIgnoreCase(res))
             System.out.println("Successfull outcome");
     }
 
@@ -133,14 +136,56 @@ public class FirstTestCase {
     @Then("^Check if user is able to click on third radio button$")
     public void checkIfUserIsAbleToClickOnThirdRadioButton() {
         List<WebElement> numberOfRadioButtons = driver.findElements(Locators.numberOfRadioButtons);
-       if(!numberOfRadioButtons.get(2).isEnabled())
-           System.out.println("Third radio button is disabled");
-       else
-           System.out.println("Third radio button is enabled");
+        if (!numberOfRadioButtons.get(2).isEnabled())
+            System.out.println("Third radio button is disabled");
+        else
+            System.out.println("Third radio button is enabled");
     }
 
     @Then("Close browser")
-    public void closeBrowser() {
+    public void closeBrowser() throws InterruptedException {
+        Thread.sleep(3000);
         driver.close();
+    }
+
+    //    TC3
+    @And("Click on {string} button")
+    public void clickOnButton(String buttonName) throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(Locators.dropDownButtons(buttonName)).click();
+    }
+
+    @Then("Click on {string} column header")
+    public void clickOnColumnHeader(String columnString) throws InterruptedException {
+        Thread.sleep(1500);
+        List<WebElement> headers = driver.findElements(Locators.columnHeaders);
+        headers.get(Integer.parseInt(columnString)).click();
+    }
+
+    @And("Verify if list get sort or not")
+    public void verifyIfListGetSortOrNot() {
+        List<WebElement> temp = driver.findElements(Locators.names);
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> check = new ArrayList<>();
+        for (int i = 0; i < temp.size(); i++) {
+            if(!temp.get(i).getText().contains(" ")) {
+                names.add(temp.get(i).getText());
+                check.add(temp.get(i).getText());
+            }
+        }
+        Collections.sort(names);
+
+        Boolean isTrue = true;
+        for (int i = 0; i < names.size(); i++) {
+            if (!names.get(i).equalsIgnoreCase(check.get(i))) {
+                isTrue = false;
+                break;
+            }
+        }
+
+        if (isTrue)
+            System.out.println("Sorted!!!");
+        else
+            System.out.println("Not Sorted!!!");
     }
 }

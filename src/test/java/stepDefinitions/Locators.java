@@ -12,10 +12,16 @@ public class Locators {
     public static By permanentAddressField = By.xpath("//textarea[@id='permanentAddress']");
     public static By submitButton = By.xpath("//button[@id='submit']");
     public static By outputWebElement = By.xpath("//div[@class='border col-md-12 col-sm-12']//p");
-    public  static By radioButton = By.xpath("//span[text()='Radio Button']");
+    public static By radioButton = By.xpath("//span[text()='Radio Button']");
     public static By numberOfRadioButtons = By.xpath("//input[@name='like']");
-    public static By radio1 =By.xpath("//label[@for='yesRadio']");
-    public static By radio2 =By.xpath("//label[@for='impressiveRadio']");
+    public static By radio1 = By.xpath("//label[@for='yesRadio']");
+    public static By radio2 = By.xpath("//label[@for='impressiveRadio']");
     public static By radioButtonResponse = By.xpath("//span[@class='text-success']");
 
+    public static By dropDownButtons(String name) {
+        return (By.xpath("//span[text()='" + name + "']"));
+    }
+
+    public static By columnHeaders = By.xpath("//div[@class='rt-resizable-header-content']");
+    public static By names = By.xpath("//div[@class='rt-tr-group']//div[@class='rt-td'][1]");
 }
