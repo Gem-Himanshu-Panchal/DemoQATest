@@ -184,8 +184,8 @@ public class FirstTestCase {
         }
 
         if (isTrue)
-            System.out.println("Sorted");
+            System.out.println("Sorted!!!");
         else
-            System.out.println("Not Sorted");
+            System.out.println("Not Sorted!!!");
     }
 }
